@@ -1,0 +1,58 @@
+// body {
+//   background-image: url('/assets/background.jpg');
+//   object-fit: cover;
+// }
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: 60px;
+  font-family: $title-font;
+  text-align: center;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  margin: 20px;
+}
+
+h2 {
+  margin-top: 10px;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+}
+
+.step-containers {
+  display: grid;
+  align-content: space-between;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 20px;
+  width: 400px;
+  height: 480px;
+  padding: 20px;
+}
+
+button {
+  @include button-style();
+}
+
+#instructions-button {
+  @include button-style();
+  margin: 10px 0 10px auto;
+}
