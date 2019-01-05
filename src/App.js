@@ -11,7 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 1,
+      step: 3,
       questionCount: 0,
       showInstructions: false,
       problems: [],

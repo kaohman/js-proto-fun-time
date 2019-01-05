@@ -21,23 +21,28 @@ class Step3 extends Component {
 
   getUserAnswer = (event) => {
     event.preventDefault();
-    let fnStr = this.state.userCode
-      .split('function solveProblem(arg) {')[1]
-      .split(`}
+    let correctResponse;
+    try {
+      let fnStr = this.state.userCode
+        .split('function solveProblem(arg) {')[1]
+        .split(`}
   
   var result = solveProblem(inputData);`)[0].trim();
-    let evalCode = new Function('arg', fnStr);
-    let resultStr = evalCode(this.props.input)
-    if (resultStr) {
-      resultStr.toString();
+      let evalCode = new Function('arg', fnStr);
+      let resultStr = evalCode(this.props.input).toString();
+      let answerStr = this.props.correctAnswer.toString();
+      correctResponse = resultStr === answerStr ?
+        'Correct! Click Next Step to continue to the next problem.' :
+        'Sorry that is incorrect, please try again.';
     }
-    let answerStr = this.props.correctAnswer.toString();
-    let correctResponse = resultStr === answerStr ?
-      'Correct! Click Next Step to continue to the next problem.' :
-      'Sorry that is incorrect, please try again.';
-    this.setState({
-      correctResponse: correctResponse,
-    });
+    catch(err) {
+      correctResponse = 'Sorry that is incorrect, please try again.'
+    }
+    finally {
+      this.setState({
+        correctResponse: correctResponse,
+      });
+    }
   }
 
   render() {
