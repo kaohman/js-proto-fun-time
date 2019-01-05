@@ -2,15 +2,24 @@ label {
   text-align: center;
 }
 
-input {
-  border: 1px solid grey;
-  margin: 10px;
-  padding: 5px;
-  height: 20px;
+.code-editor {
+  filter: drop-shadow(3px 3px 5px grey);
+  font-size: 18px;
+  width: 640px;
 }
 
-.code-editor {
-  width: 650px;
-  font-size: 18px;
+#step-3-container {
+  animation-name: step3SlideIn;
+  animation-duration: 2.5s;
+  animation-iteration-count: 1;
+}
+
+@keyframes step3SlideIn {
+  0% {
+    transform: translateX(-1500px)
+  }
+  100% {
+    transform: translateY(0px)
+  }
 }
 

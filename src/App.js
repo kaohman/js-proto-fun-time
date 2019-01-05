@@ -11,7 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 3,
+      step: 2,
       questionCount: 0,
       showInstructions: false,
       problems: [],
@@ -28,18 +28,29 @@ class App extends Component {
 
   incrementStep = () => {
     let newStep = this.state.step < 3 ? this.state.step + 1 : 1;
-    newStep === 1 && this.updateQuestion();
     this.setState({
       step: newStep
     });
+    if (newStep === 1) {
+      this.state.questionCount+1 === this.state.problems.length ? this.updateQuestion() : this.updateGame();
+    } 
   }
 
   updateQuestion = () => {
     let newQuestionCount = this.state.questionCount + 1;
-    console.log(newQuestionCount)
     this.setState({
       questionCount: newQuestionCount,
       currentProblem: this.state.problems[newQuestionCount]
+    });
+  }
+
+  updateGame = () => {
+    let newRandomProblems = this.state.problems.sort((a, b) => 0.5 - Math.random());
+    let newCurrentProblem = newRandomProblems[0];
+    this.setState({
+      questionCount: 0,
+      problems: newRandomProblems,
+      currentProblem: newCurrentProblem
     });
   }
 
@@ -73,9 +84,18 @@ class App extends Component {
           </button>
         </header>
         <div className='game-container'>
-          <Step1 incrementStep={this.incrementStep} question={currentProblem.question} currentStep={step}/>
+          <Step1 
+            incrementStep={this.incrementStep}
+            question={currentProblem.question}
+            currentStep={step}
+          />
           {
-            step > 1 && <Step2 incrementStep={this.incrementStep} correctMethod={currentProblem.method} currentStep={step}/>
+            step > 1 && 
+            <Step2 
+              incrementStep={this.incrementStep}
+              correctMethod={currentProblem.method}
+              currentStep={step}
+            />
           }
           {
             step > 2 && 
@@ -83,6 +103,8 @@ class App extends Component {
               incrementStep={this.incrementStep} 
               correctAnswer={currentProblem.result}
               input={currentProblem.input}
+              questionCount={questionCount}
+              gameLength={problems.length}
               currentStep={step}
             />
           }

@@ -1,0 +1,14 @@
+#step-1-container {
+  animation-name: slideInX;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+}
+
+@keyframes slideInX {
+  0% {
+    transform: translateX(-300px)
+  }
+  100% {
+    transform: translateY(0px)
+  }
+}

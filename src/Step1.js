@@ -2,7 +2,7 @@ import React from 'react';
 
 function Step1(props) {
   return (
-    <div className='step-containers'>
+    <div className='step-containers' id='step-1-container'>
       <div>
         <h3>Step 1: Read The Problem</h3>
         <p>{props.question}</p>

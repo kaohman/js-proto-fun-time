@@ -30,7 +30,7 @@ class Step2 extends Component {
     let { currentStep, incrementStep } = this.props;
 
     return (
-      <div className='step-containers'>
+      <div className='step-containers' id='step-2-container'>
         <div>
           <h3>Step 2: Pick Your Method</h3>
           <p>Which prototype method is best to use for this problem (ex. sort)?</p>

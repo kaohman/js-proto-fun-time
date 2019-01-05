@@ -44,13 +44,17 @@ class Step3 extends Component {
     let evalCode = new Function('arg', fnStr);
     let resultStr = evalCode(this.props.input).toString();
     let answerStr = this.props.correctAnswer.toString();
-    return resultStr === answerStr ?
-      'Correct! Click Next Step to continue to the next problem.' :
-      'Sorry that is incorrect, please try again.';
+    if (resultStr === answerStr) {
+      return this.props.questionCount + 1 === this.props.gameLength ?
+        'Correct, you completed all the problems! Click New Game.' :
+        'Correct! Click Next Step to continue to the next problem.'
+    } else {
+      return 'Sorry that is incorrect, please try again.'
+    }
   }
 
   render() {
-    let { input, incrementStep, currentStep } = this.props;
+    let { input, incrementStep, currentStep, questionCount, gameLength } = this.props;
     let problemSetup = `  var inputData = ${JSON.stringify(input)};
       
   function solveProblem(arg) {
@@ -60,7 +64,7 @@ class Step3 extends Component {
   
   var result = solveProblem(inputData);`;
     return (
-      <div className='step-containers'>
+      <div className='step-containers' id='step-3-container'>
         <div>
           <h3>Step 3: Let's Solve The Problem</h3>
           <p>Here's the setup:</p>
@@ -75,15 +79,18 @@ class Step3 extends Component {
             className='code-editor'
             onChange={this.updateUserCode} 
           />
-          <p id='console'></p>
           {
             currentStep === 3 && <h4>{this.state.correctResponse}</h4>
           }
         </div>
         {
-          this.props.currentStep === 3 && (
-            this.state.correctResponse === 'Correct! Click Next Step to continue to the next problem.' ?
-            <button onClick={incrementStep}>Next Step</button> :
+          currentStep === 3 && (
+            this.state.correctResponse.length > 42 ?
+            <button onClick={incrementStep}>
+              {
+                questionCount + 1 === gameLength ? 'New Game' : 'Next Step'
+              }
+            </button> :
             <button onClick={this.getUserAnswer}>Check Answer</button>
           )
         }
