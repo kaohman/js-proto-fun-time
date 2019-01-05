@@ -23,17 +23,7 @@ class Step3 extends Component {
     event.preventDefault();
     let correctResponse;
     try {
-      let fnStr = this.state.userCode
-        .split('function solveProblem(arg) {')[1]
-        .split(`}
-  
-  var result = solveProblem(inputData);`)[0].trim();
-      let evalCode = new Function('arg', fnStr);
-      let resultStr = evalCode(this.props.input).toString();
-      let answerStr = this.props.correctAnswer.toString();
-      correctResponse = resultStr === answerStr ?
-        'Correct! Click Next Step to continue to the next problem.' :
-        'Sorry that is incorrect, please try again.';
+      correctResponse = this.checkUserAnswer();
     }
     catch(err) {
       correctResponse = 'Sorry that is incorrect, please try again.'
@@ -43,6 +33,20 @@ class Step3 extends Component {
         correctResponse: correctResponse,
       });
     }
+  }
+
+  checkUserAnswer() {
+    let fnStr = this.state.userCode
+      .split('function solveProblem(arg) {')[1]
+      .split(`}
+  
+  var result = solveProblem(inputData);`)[0].trim();
+    let evalCode = new Function('arg', fnStr);
+    let resultStr = evalCode(this.props.input).toString();
+    let answerStr = this.props.correctAnswer.toString();
+    return resultStr === answerStr ?
+      'Correct! Click Next Step to continue to the next problem.' :
+      'Sorry that is incorrect, please try again.';
   }
 
   render() {
