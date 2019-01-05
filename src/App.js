@@ -12,10 +12,9 @@ class App extends Component {
     super();
     this.state = {
       step: 1,
-      question: 1,
+      questionCount: 0,
       showInstructions: false,
       problems: [],
-      currentProblemIndex: 0,
       currentProblem: {}
     }
   }
@@ -28,9 +27,19 @@ class App extends Component {
   }
 
   incrementStep = () => {
-    let newStep = this.state.step < 3 ? this.state.step + 1 : 1
+    let newStep = this.state.step < 3 ? this.state.step + 1 : 1;
+    newStep === 1 && this.updateQuestion();
     this.setState({
       step: newStep
+    });
+  }
+
+  updateQuestion = () => {
+    let newQuestionCount = this.state.questionCount + 1;
+    console.log(newQuestionCount)
+    this.setState({
+      questionCount: newQuestionCount,
+      currentProblem: this.state.problems[newQuestionCount]
     });
   }
 
@@ -38,20 +47,24 @@ class App extends Component {
     fetch('http://memoize-datasets.herokuapp.com/api/v1/problems')
       .then(data => data.json())
       .then(results => {
+        let randomResults = results.problems.sort((a, b) => 0.5 - Math.random());
         this.setState({
-          problems: results.problems,
-          currentProblem: results.problems[this.state.currentProblemIndex]
+          problems: randomResults,
+          currentProblem: randomResults[0]
         });
       })
       .catch(error => console.log(error));
   }
 
   render() {
-    let { step, question, showInstructions, currentProblem } = this.state;
+    let { step, showInstructions, currentProblem, problems, questionCount } = this.state;
     return (
       <div>
         <header>
-          <h2>Question 1 of {question}</h2>
+          <h2>
+            Question {questionCount+1} of {problems.length}
+            <span id='difficulty-text'>Difficulty: {currentProblem.difficulty}</span>
+          </h2>
           <h1>[ jsProtoFunTime ]</h1>
           <button onClick={this.toggleInstructionsCard} id="instructions-button">
           {
@@ -65,7 +78,13 @@ class App extends Component {
             step > 1 && <Step2 incrementStep={this.incrementStep} correctMethod={currentProblem.method} currentStep={step}/>
           }
           {
-            step > 2 && <Step3 incrementStep={this.incrementStep} correctAnswer={currentProblem.answer} currentStep={step}/>
+            step > 2 && 
+            <Step3 
+              incrementStep={this.incrementStep} 
+              correctAnswer={currentProblem.result}
+              input={currentProblem.input}
+              currentStep={step}
+            />
           }
         </div>
         {

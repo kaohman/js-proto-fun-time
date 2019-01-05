@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Step2 extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       answerInput: '',
       correctAnswer: ''
@@ -32,8 +32,8 @@ class Step2 extends Component {
     return (
       <div className='step-containers'>
         <div>
-          <h3>Step 2: Pick Your Prototype</h3>
-          <p>Which prototype is best to use for this problem (ex. sort)?</p>
+          <h3>Step 2: Pick Your Method</h3>
+          <p>Which prototype method is best to use for this problem (ex. sort)?</p>
           <label>Answer:
           <input onChange={this.getAnswerInput}></input>
           </label>

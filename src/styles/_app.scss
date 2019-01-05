@@ -12,7 +12,7 @@ button:focus {
 header {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
-  margin: 20px;
+  margin: 20px 20px 0;
 }
 
 h1 {
@@ -34,6 +34,7 @@ h3 {
 h4 {
   font-size: 20px;
   text-align: center;
+  margin: 0
 }
 
 p {
@@ -46,7 +47,7 @@ button {
 
 .game-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr;
   justify-content: center;
 }
 
@@ -57,12 +58,16 @@ button {
   border: 1px solid black;
   border-radius: 10px;
   margin: 15px;
-  width: 400px;
-  height: 480px;
+  height: 500px;
   padding: 20px;
 }
 
 #instructions-button {
   @include button-style();
   margin: 10px 0 10px auto;
+}
+
+#difficulty-text {
+  margin-top: 5px;
+  display: block;
 }

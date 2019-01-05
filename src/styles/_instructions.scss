@@ -5,8 +5,12 @@
   position: absolute;
   margin-top: -500px;
   margin-left: 350px;
-  height: 280px;
+  height: 285px;
   width: 700px;;
   z-index: 12;
-  padding: 20px;
+  padding: 25px;
+
+  p {
+    font-size: 16px;
+  }
 }
