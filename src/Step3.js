@@ -8,7 +8,9 @@ function Step3(props) {
         <p>Here's the setup:</p>
         <textarea rows='15' cols='40'></textarea>
       </div>
-      <button>Check Answer</button>
+      {
+        props.currentStep === 3 && <button onClick={props.incrementStep}>Check Answer</button>
+      }
     </div>
   )
 }

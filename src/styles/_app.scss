@@ -9,6 +9,12 @@ button:focus {
   outline: none;
 }
 
+header {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  margin: 20px;
+}
+
 h1 {
   margin: 0;
   font-size: 60px;
@@ -16,18 +22,26 @@ h1 {
   text-align: center;
 }
 
-header {
-  display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
-  margin: 20px;
-}
-
 h2 {
   margin-top: 10px;
 }
 
 h3 {
+  font-size: 24px;
   margin-top: 0;
+}
+
+h4 {
+  font-size: 20px;
+  text-align: center;
+}
+
+p {
+  font-size: 20px;
+}
+
+button {
+  @include button-style();
 }
 
 .game-container {
@@ -42,14 +56,10 @@ h3 {
   background-color: white;
   border: 1px solid black;
   border-radius: 10px;
-  margin: 20px;
+  margin: 15px;
   width: 400px;
   height: 480px;
   padding: 20px;
-}
-
-button {
-  @include button-style();
 }
 
 #instructions-button {

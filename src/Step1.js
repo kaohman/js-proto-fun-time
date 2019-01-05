@@ -5,9 +5,11 @@ function Step1(props) {
     <div className='step-containers'>
       <div>
         <h3>Step 1: Read The Problem</h3>
-        <p>Problem text</p>
+        <p>{props.question}</p>
       </div>
-      <button>Next Step</button>
+      {
+        props.currentStep === 1 && <button onClick={props.incrementStep}>Next Step</button>
+      }
     </div>
   )
 }
