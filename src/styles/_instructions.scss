@@ -1,14 +1,16 @@
 .instruction-container {
-  background-color: lightgrey;
+  background-color: #EDDFEF;
   border: 1px solid black;
   border-radius: 10px;
-  position: absolute;
-  margin-top: -500px;
+  box-shadow: 0 0 40px purple;
+  color: #003249;
+  height: 300px;
   margin-left: 350px;
-  height: 285px;
+  margin-top: -550px;
+  padding: 25px;
+  position: absolute;
   width: 700px;;
   z-index: 12;
-  padding: 25px;
 
   p {
     font-size: 16px;

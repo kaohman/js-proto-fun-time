@@ -11,10 +11,11 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 2,
+      step: 1,
       questionCount: 0,
       showInstructions: false,
       problems: [],
+      totalProblems: 0,
       currentProblem: {}
     }
   }
@@ -61,19 +62,20 @@ class App extends Component {
         let randomResults = results.problems.sort((a, b) => 0.5 - Math.random());
         this.setState({
           problems: randomResults,
-          currentProblem: randomResults[0]
+          currentProblem: randomResults[0],
+          totalProblems: randomResults.length
         });
       })
       .catch(error => console.log(error));
   }
 
   render() {
-    let { step, showInstructions, currentProblem, problems, questionCount } = this.state;
+    let { step, showInstructions, currentProblem, problems, questionCount, totalProblems } = this.state;
     return (
       <div>
         <header>
           <h2>
-            Question {questionCount+1} of {problems.length}
+            Question {questionCount+1} of {totalProblems}
             <span id='difficulty-text'>Difficulty: {currentProblem.difficulty}</span>
           </h2>
           <h1>[ jsProtoFunTime ]</h1>

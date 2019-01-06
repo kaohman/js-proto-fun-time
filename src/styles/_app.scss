@@ -24,7 +24,7 @@ h1 {
 }
 
 h2 {
-  color: #E5FCF5;
+  color: #EDDFEF;
   font-family: $body-font;
   margin-top: 10px;
 }
@@ -36,6 +36,7 @@ h3 {
 }
 
 h4 {
+  color: purple;
   font-family: $body-font;
   font-size: 20px;
   margin: 0;
@@ -50,6 +51,10 @@ p {
 
 button {
   @include button-style();
+
+  &:hover {
+    @include button-hover();
+  }
 }
 
 .game-container {
@@ -75,6 +80,10 @@ button {
   @include button-style();
   filter: drop-shadow(3px 3px 8px grey);
   margin: 10px 0 10px auto;
+
+  &:hover {
+    @include button-hover();
+  }
 }
 
 #difficulty-text {
