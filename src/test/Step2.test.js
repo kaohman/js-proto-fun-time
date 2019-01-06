@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import Step2 from '../Step2';
 import { shallow } from 'enzyme';
 
-let incrementStepMock = jest.fn();
-let correctMethodMock = 'map';
-let currentStepMock = 2;
-let changeEventMock = { target: { value: 'map'} };
-let clickEventMock = { preventDefault: () => { } };
+const incrementStepMock = jest.fn();
+const correctMethodMock = 'map';
+const currentStepMock = 2;
+const changeEventMock = { target: { value: 'map'} };
+const clickEventMock = { preventDefault: () => { } };
 
 describe('Step2', () => {
   let wrapper;

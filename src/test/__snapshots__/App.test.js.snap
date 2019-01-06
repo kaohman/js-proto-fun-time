@@ -29,39 +29,11 @@ exports[`App should match the snapshot with all data passed in 1`] = `
     className="game-container"
   >
     <Step1
-      currentStep={3}
+      currentStep={1}
       incrementStep={[Function]}
       question="You are given the following array of numbers: [1, 3, 5, 6, 7, 9].
 
 You are only interested in numbers that are divisible by 3. Return a new array or numbers that contains only the numbers divisible by 3."
-    />
-    <Step2
-      correctMethod="filter"
-      currentStep={3}
-      incrementStep={[Function]}
-    />
-    <Step3
-      correctAnswer={
-        Array [
-          3,
-          6,
-          9,
-        ]
-      }
-      currentStep={3}
-      gameLength={0}
-      incrementStep={[Function]}
-      input={
-        Array [
-          1,
-          3,
-          5,
-          6,
-          7,
-          9,
-        ]
-      }
-      questionCount={0}
     />
   </div>
 </div>

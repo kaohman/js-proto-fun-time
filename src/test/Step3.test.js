@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import Step3 from '../Step3';
 import { shallow } from 'enzyme';
 
-let incrementStepMock = jest.fn();
-let correctAnswerMock = 3;
-let inputMock = [1, 2, 3];
-let questionCountMock = 5;
-let gameLengthMock = 31;
-let currentStepMock = 3;
-let newCodeMock = `function solveProblem(arg) { return 3 }
+const incrementStepMock = jest.fn();
+const correctAnswerMock = 3;
+const inputMock = [1, 2, 3];
+const questionCountMock = 5;
+const gameLengthMock = 31;
+const currentStepMock = 3;
+const newCodeMock = `function solveProblem(arg) { return 3 }
   
   var result = solveProblem(inputData);`;
 let eventMock = { preventDefault: () => { } };
