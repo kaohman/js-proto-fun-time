@@ -11,12 +11,13 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 3,
-      questionCount: 30,
+      step: 1,
+      questionCount: 0,
       showInstructions: false,
       problems: [],
       totalProblems: 0,
-      currentProblem: {}
+      currentProblem: {},
+      loaded: false
     }
   }
 
@@ -63,59 +64,67 @@ class App extends Component {
         this.setState({
           problems: randomResults,
           currentProblem: randomResults[0],
-          totalProblems: randomResults.length
+          totalProblems: randomResults.length,
+          loaded: true
         });
       })
       .catch(error => console.log(error));
   }
 
   render() {
-    let { step, showInstructions, currentProblem, problems, questionCount, totalProblems } = this.state;
-    return (
-      <div>
-        <header>
-          <h2>
-            Question {questionCount+1} of {totalProblems}
-            <span id='difficulty-text'>Difficulty: {currentProblem.difficulty}</span>
-          </h2>
-          <h1>[ jsProtoFunTime ]</h1>
-          <button onClick={this.toggleInstructionsCard} id="instructions-button">
-          {
-            showInstructions ? 'Hide Instructions' : 'Show Instructions'
-          }
-          </button>
-        </header>
-        <div className='game-container'>
-          <Step1 
-            incrementStep={this.incrementStep}
-            question={currentProblem.question}
-            currentStep={step}
-          />
-          {
-            step > 1 && 
-            <Step2 
+    if (this.state.loaded === true) {
+      let { step, showInstructions, currentProblem, problems, questionCount, totalProblems } = this.state;
+      let parsedQuestion = currentProblem.question.replace('. ', '.\n\n');
+      return (
+        <div>
+          <header>
+            <h2>
+              Question {questionCount+1} of {totalProblems}
+              <span id='difficulty-text'>Difficulty: {currentProblem.difficulty}</span>
+            </h2>
+            <h1>[ jsProtoFunTime ]</h1>
+            <button onClick={this.toggleInstructionsCard} id="instructions-button">
+            {
+              showInstructions ? 'Hide Instructions' : 'Show Instructions'
+            }
+            </button>
+          </header>
+          <div className='game-container'>
+            <Step1 
               incrementStep={this.incrementStep}
-              correctMethod={currentProblem.method}
+              question={parsedQuestion}
               currentStep={step}
             />
-          }
+            {
+              step > 1 && 
+              <Step2 
+                incrementStep={this.incrementStep}
+                correctMethod={currentProblem.method}
+                currentStep={step}
+              />
+            }
+            {
+              step > 2 && 
+              <Step3 
+                incrementStep={this.incrementStep} 
+                correctAnswer={currentProblem.result}
+                input={currentProblem.input}
+                questionCount={questionCount}
+                gameLength={problems.length}
+                currentStep={step}
+              />
+            }
+          </div>
           {
-            step > 2 && 
-            <Step3 
-              incrementStep={this.incrementStep} 
-              correctAnswer={currentProblem.result}
-              input={currentProblem.input}
-              questionCount={questionCount}
-              gameLength={problems.length}
-              currentStep={step}
-            />
+            showInstructions && <Instructions />
           }
         </div>
-        {
-          showInstructions && <Instructions />
-        }
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>Loading...</div>
+      )
+    }
   }
 }
 
