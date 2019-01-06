@@ -11,8 +11,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 1,
-      questionCount: 0,
+      step: 3,
+      questionCount: 30,
       showInstructions: false,
       problems: [],
       totalProblems: 0,
@@ -33,7 +33,7 @@ class App extends Component {
       step: newStep
     });
     if (newStep === 1) {
-      this.state.questionCount+1 === this.state.problems.length ? this.updateQuestion() : this.updateGame();
+      this.state.questionCount+1 !== this.state.problems.length ? this.updateQuestion() : this.updateGame();
     } 
   }
 

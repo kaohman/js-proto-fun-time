@@ -47,7 +47,7 @@ class Step3 extends Component {
     if (resultStr === answerStr) {
       return this.props.questionCount + 1 === this.props.gameLength ?
         'Correct, you completed all the problems! Click New Game.' :
-        'Correct! Click Next Step to continue to the next problem.'
+        'Correct! Click Next Problem to continue to the next problem.'
     } else {
       return 'Sorry that is incorrect, please try again.'
     }
@@ -88,7 +88,7 @@ class Step3 extends Component {
             this.state.correctResponse.length > 42 ?
             <button onClick={incrementStep}>
               {
-                questionCount + 1 === gameLength ? 'New Game' : 'Next Step'
+                questionCount + 1 === gameLength ? 'New Game' : 'Next Problem'
               }
             </button> :
             <button onClick={this.getUserAnswer}>Check Answer</button>
