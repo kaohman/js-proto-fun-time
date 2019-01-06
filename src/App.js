@@ -11,7 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 1,
+      step: 3,
       questionCount: 0,
       showInstructions: false,
       problems: [],
@@ -23,8 +23,7 @@ class App extends Component {
 
   toggleInstructionsCard = () => {
     this.setState({
-      showInstructions: !this.state.showInstructions,
-      problems: []
+      showInstructions: !this.state.showInstructions
     });
   }
 
@@ -83,7 +82,7 @@ class App extends Component {
               <span id='difficulty-text'>Difficulty: {currentProblem.difficulty}</span>
             </h2>
             <h1>[ jsProtoFunTime ]</h1>
-            <button onClick={this.toggleInstructionsCard} id="instructions-button">
+            <button onClick={this.toggleInstructionsCard} id='instructions-button'>
             {
               showInstructions ? 'Hide Instructions' : 'Show Instructions'
             }
@@ -122,7 +121,7 @@ class App extends Component {
       );
     } else {
       return (
-        <div>Loading...</div>
+        <div></div>
       )
     }
   }

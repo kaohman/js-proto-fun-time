@@ -44,8 +44,8 @@ class Step2 extends Component {
         {
           currentStep === 2 && (
             this.state.correctAnswer === 'Correct! Click Next Step to continue.' ? 
-              <button onClick={incrementStep}>Next Step</button> :
-              <button onClick={this.checkAnswer}>Check Answer</button>
+              <button id='next-step-button-2' onClick={incrementStep}>Next Step</button> :
+              <button id='check-answer-button-2' onClick={this.checkAnswer}>Check Answer</button>
             )
         }
       </div>

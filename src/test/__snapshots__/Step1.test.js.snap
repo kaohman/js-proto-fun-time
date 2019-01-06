@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Step1 should match the snapshot with all data passed in 1`] = `
+<div
+  className="step-containers"
+  id="step-1-container"
+>
+  <div>
+    <h3>
+      Step 1: Read The Problem
+    </h3>
+    <p>
+      You are given the following array of your friends ages: [18, 29, 56, 5, 77, 1]. You have a wide variety or friends! All your friends have celebrated their birthdays this year so you want to return an updated array of ages that reflects them all aging by one year.
+    </p>
+  </div>
+  <button
+    onClick={[MockFunction]}
+  >
+    Next Step
+  </button>
+</div>
+`;

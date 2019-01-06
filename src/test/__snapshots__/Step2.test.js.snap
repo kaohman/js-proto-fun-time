@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Step2 should match the snapshot with all data passed in 1`] = `
+<div
+  className="step-containers"
+  id="step-2-container"
+>
+  <div>
+    <h3>
+      Step 2: Pick Your Method
+    </h3>
+    <p>
+      Which prototype method is best to use for this problem (ex. sort)?
+    </p>
+    <label>
+      Answer:
+      <input
+        onChange={[Function]}
+      />
+    </label>
+    <h4 />
+  </div>
+  <button
+    id="check-answer-button-2"
+    onClick={[Function]}
+  >
+    Check Answer
+  </button>
+</div>
+`;

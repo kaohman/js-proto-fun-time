@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Step3 should match the snapshot with all data passed in 1`] = `
+<div
+  className="step-containers"
+  id="step-3-container"
+>
+  <div>
+    <h3>
+      Step 3: Let's Solve The Problem
+    </h3>
+    <p>
+      Here's the setup:
+    </p>
+    <UnControlled
+      className="code-editor"
+      onChange={[Function]}
+      options={
+        Object {
+          "lineNumbers": true,
+          "lineWrapping": true,
+          "mode": "javascript",
+          "theme": "material",
+        }
+      }
+      value="  var inputData = [1,2,3];
+      
+  function solveProblem(arg) {
+    // Apply the prototype to your input here
+    // Remember to return the result.
+  }
+  
+  var result = solveProblem(inputData);"
+    />
+    <h4 />
+  </div>
+  <button
+    id="check-answer-button-3"
+    onClick={[Function]}
+  >
+    Check Answer
+  </button>
+</div>
+`;

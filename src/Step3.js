@@ -9,7 +9,7 @@ class Step3 extends Component {
     super(props);
     this.state = {
       userCode: '',
-      correctResponse: '',
+      correctResponse: ''
     }
   }
 
@@ -55,7 +55,8 @@ class Step3 extends Component {
 
   render() {
     let { input, incrementStep, currentStep, questionCount, gameLength } = this.props;
-    let problemSetup = `  var inputData = ${JSON.stringify(input)};
+    let parsedInput = input.includes('{') ? input : JSON.stringify(input).replace(/\"/g, "'").replace("''", "'").replace('.', '');
+    let problemSetup = `  var inputData = ${parsedInput};
       
   function solveProblem(arg) {
     // Apply the prototype to your input here
@@ -86,12 +87,12 @@ class Step3 extends Component {
         {
           currentStep === 3 && (
             this.state.correctResponse.length > 42 ?
-            <button onClick={incrementStep}>
+            <button id='next-step-button-3' onClick={incrementStep}>
               {
                 questionCount + 1 === gameLength ? 'New Game' : 'Next Problem'
               }
             </button> :
-            <button onClick={this.getUserAnswer}>Check Answer</button>
+            <button id='check-answer-button-3' onClick={this.getUserAnswer}>Check Answer</button>
           )
         }
       </div>
