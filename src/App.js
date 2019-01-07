@@ -61,11 +61,12 @@ class App extends Component {
 
   updateGame = () => {
     let newRandomProblems = this.state.problems.sort((a, b) => 0.5 - Math.random());
-    let unsolvedProblems = newRandomProblems.map(question => question.result);
+    let unsolvedProblems = newRandomProblems.map(question => question.question);
     this.setState({
       problems: newRandomProblems,
       unsolvedProblemIds: unsolvedProblems,
-      solvedProblemIds: []
+      solvedProblemIds: [],
+      step: 1
     });
     localStorage.clear('solvedProblems');
   }
@@ -108,7 +109,7 @@ class App extends Component {
   render() {
     if (this.state.loaded === true) {
       let { step, showInstructions, problems, solvedProblemIds, unsolvedProblemIds } = this.state;
-      let currentProblem = this.state.problems.find(problem => problem.question.includes(unsolvedProblemIds[0]));
+      let currentProblem = problems.find(problem => problem.question.includes(unsolvedProblemIds[0]));
       let parsedQuestion = currentProblem.question.replace('. ', '.\n\n');
       return (
         <div>
