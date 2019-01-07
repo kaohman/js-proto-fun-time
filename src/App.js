@@ -12,7 +12,6 @@ class App extends Component {
     super();
     this.state = {
       step: 1,
-      questionCount: 0,
       showInstructions: false,
       problems: [],
       solvedProblemIds: [],
@@ -113,7 +112,7 @@ class App extends Component {
       return (
         <div>
           <header>
-            <div>
+            <div className='left-info-container'>
               <h2>
                 {solvedProblemIds.length} of {problems.length} problems solved
                 <span id='difficulty-text'>Current problem difficulty: {currentProblem.difficulty}</span>

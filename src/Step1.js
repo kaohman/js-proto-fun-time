@@ -5,7 +5,7 @@ function Step1(props) {
     <div className='step-containers' id='step-1-container'>
       <div>
         <h3>Step 1: Read The Problem</h3>
-        <p>{props.question}</p>
+        <p className='question-text'>{props.question}</p>
       </div>
       {
         props.currentStep === 1 && 

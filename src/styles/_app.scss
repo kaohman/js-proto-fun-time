@@ -100,3 +100,95 @@ button {
   display: block;
   margin-top: 5px;
 }
+
+@media screen and (max-width: 1300px) {
+  header {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+}
+
+
+@media screen and (max-width: 1175px) {
+  header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  header {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+
+  h1 {
+    order: -1;
+    font-size: 40px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .left-info-container {
+    margin: 5px auto;
+  }
+
+  .app-buttons {
+    width: 280px;
+  }
+
+  .right-header-buttons {
+    margin: 0 auto;
+  }
+
+  #skip-button {
+    margin: 0 auto;
+  }
+
+  #instructions-button {
+    margin-bottom: 10px;
+  }
+
+  .game-container {
+    grid-template-columns: 1fr;
+  }
+
+  .step-containers {
+    height: 300px;
+  }
+
+  #step-3-container {
+     height: 480px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+
+  p,
+  label {
+    font-size: 16px;
+  }
+
+}

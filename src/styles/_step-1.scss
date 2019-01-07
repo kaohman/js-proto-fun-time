@@ -4,11 +4,23 @@
   animation-iteration-count: 1;
 }
 
+.question-text {
+  max-height: 330px;
+  overflow: scroll;
+}
+
 @keyframes slideInX {
   0% {
     transform: translateX(-300px)
   }
   100% {
     transform: translateY(0px)
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .question-text {
+    max-height: 200px;
+    overflow: scroll;
   }
 }
