@@ -8,7 +8,8 @@ function Step1(props) {
         <p>{props.question}</p>
       </div>
       {
-        props.currentStep === 1 && <button onClick={props.incrementStep}>Next Step</button>
+        props.currentStep === 1 && 
+        <button onClick={props.incrementStep}>Next Step</button>
       }
     </div>
   )

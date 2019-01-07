@@ -11,12 +11,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      step: 3,
+      step: 1,
       questionCount: 0,
       showInstructions: false,
       problems: [],
-      totalProblems: 0,
-      currentProblem: {},
+      solvedProblemIds: [],
+      unsolvedProblemIds: [],
       loaded: false
     }
   }
@@ -33,26 +33,58 @@ class App extends Component {
       step: newStep
     });
     if (newStep === 1) {
-      this.state.questionCount+1 !== this.state.problems.length ? this.updateQuestion() : this.updateGame();
+      this.state.solvedProblemIds.length !== this.state.problems.length ? this.updateQuestion() : this.updateGame();
     } 
   }
 
-  updateQuestion = () => {
-    let newQuestionCount = this.state.questionCount + 1;
-    this.setState({
-      questionCount: newQuestionCount,
-      currentProblem: this.state.problems[newQuestionCount]
-    });
+  updateQuestion = (skip = false) => {
+    if (skip) {
+      let newUnsolvedProblems = this.state.unsolvedProblemIds.slice();
+      newUnsolvedProblems.push(newUnsolvedProblems.shift());
+      this.setState({
+        unsolvedProblemIds: newUnsolvedProblems,
+        step: 1
+      })
+    } else {
+      let newSolvedProblems = this.state.solvedProblemIds.slice();
+      let newUnsolvedProblems = this.state.unsolvedProblemIds.slice()
+      newUnsolvedProblems.shift();
+      newSolvedProblems.push(newUnsolvedProblems[0]);
+      this.setState({ 
+        solvedProblemIds: newSolvedProblems,
+        unsolvedProblemIds: newUnsolvedProblems,
+        step: 1
+      })
+      localStorage.setItem('solvedProblems', JSON.stringify(newSolvedProblems));
+    }
   }
 
   updateGame = () => {
     let newRandomProblems = this.state.problems.sort((a, b) => 0.5 - Math.random());
-    let newCurrentProblem = newRandomProblems[0];
+    let unsolvedProblems = newRandomProblems.map(question => question.result);
     this.setState({
-      questionCount: 0,
       problems: newRandomProblems,
-      currentProblem: newCurrentProblem
+      unsolvedProblemIds: unsolvedProblems,
+      solvedProblemIds: []
     });
+    localStorage.clear('solvedProblems');
+  }
+
+  skipProblem = (event) => {
+    event.preventDefault();
+    this.updateQuestion(true);
+  }
+
+  pullFromLocalStorage = () => {
+    if (localStorage.hasOwnProperty('solvedProblems')) {
+      let cachedSolvedProblemsIds = localStorage.getItem('solvedProblems');
+      let solvedProblemIds = JSON.parse(cachedSolvedProblemsIds);
+      let unsolvedProblemIds = this.state.unsolvedProblemIds.filter(id => solvedProblemIds.includes(id) === -1);
+      this.setState({
+        solvedProblemIds: solvedProblemIds,
+        unsolvedProblemIds: unsolvedProblemIds
+      });
+    }
   }
 
   componentDidMount() {
@@ -60,33 +92,43 @@ class App extends Component {
       .then(data => data.json())
       .then(results => {
         let randomResults = results.problems.sort((a, b) => 0.5 - Math.random());
+        let unsolvedProblems = randomResults.map(problem => problem.question);
         this.setState({
           problems: randomResults,
-          currentProblem: randomResults[0],
           totalProblems: randomResults.length,
+          unsolvedProblemIds: unsolvedProblems,
           loaded: true
         });
       })
       .catch(error => console.log(error));
+
+    this.pullFromLocalStorage();
   }
 
   render() {
     if (this.state.loaded === true) {
-      let { step, showInstructions, currentProblem, problems, questionCount, totalProblems } = this.state;
+      let { step, showInstructions, problems, solvedProblemIds, unsolvedProblemIds } = this.state;
+      let currentProblem = this.state.problems.find(problem => problem.question.includes(unsolvedProblemIds[0]));
       let parsedQuestion = currentProblem.question.replace('. ', '.\n\n');
       return (
         <div>
           <header>
-            <h2>
-              Question {questionCount+1} of {totalProblems}
-              <span id='difficulty-text'>Difficulty: {currentProblem.difficulty}</span>
-            </h2>
+            <div>
+              <h2>
+                {solvedProblemIds.length} of {problems.length} problems solved
+                <span id='difficulty-text'>Current problem difficulty: {currentProblem.difficulty}</span>
+              </h2>
+              <button onClick={this.skipProblem} className='app-buttons' id='skip-button'>Skip Problem</button>
+            </div>
             <h1>[ jsProtoFunTime ]</h1>
-            <button onClick={this.toggleInstructionsCard} id='instructions-button'>
-            {
-              showInstructions ? 'Hide Instructions' : 'Show Instructions'
-            }
-            </button>
+            <div className='right-header-buttons'>
+              <button onClick={this.toggleInstructionsCard} className='app-buttons' id='instructions-button'>
+              {
+                showInstructions ? 'Hide Instructions' : 'Show Instructions'
+              }
+              </button>
+              <button onClick={this.updateGame} className='app-buttons' id='restart-button'>Start New Game</button>
+            </div>
           </header>
           <div className='game-container'>
             <Step1 
@@ -108,7 +150,7 @@ class App extends Component {
                 incrementStep={this.incrementStep} 
                 correctAnswer={currentProblem.result}
                 input={currentProblem.input}
-                questionCount={questionCount}
+                questionCount={solvedProblemIds.length}
                 gameLength={problems.length}
                 currentStep={step}
               />

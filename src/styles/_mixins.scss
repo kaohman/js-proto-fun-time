@@ -6,10 +6,10 @@
     display: block;
     filter: drop-shadow(3px 3px 5px grey);
     font-family: $body-font;
-    font-size: 20px;
-    height: 40px;
-    margin: 10px auto;
-    width: 180px;
+    font-size: 16px;
+    height: 35px;
+    margin: 5px auto;
+    width: 150px;
   }
 
   @mixin button-hover() {
