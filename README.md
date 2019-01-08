@@ -1,6 +1,7 @@
 # jsProtoFunTime
 
-### See it Live!
+### [See it Live!](https://kaohman.github.io/js-proto-fun-time/)
+
 
 ### Set-Up Front-End:
 Clone this repo  
