@@ -6,9 +6,10 @@ import { shallow } from 'enzyme';
 const incrementStepMock = jest.fn();
 const correctAnswerMock = 3;
 const inputMock = [1, 2, 3];
-const questionCountMock = 5;
 const gameLengthMock = 31;
 const currentStepMock = 3;
+const parsedInputMock = '[1, 2, 3]';
+const questionCountMock = 4;
 const newCodeMock = `function solveProblem(arg) { return 3 }
   
   var result = solveProblem(inputData);`;
@@ -23,6 +24,7 @@ describe('Step3', () => {
         incrementStep={incrementStepMock}
         correctAnswer={correctAnswerMock}
         input={inputMock}
+        renderInput={parsedInputMock}
         questionCount={questionCountMock}
         gameLength={gameLengthMock}
         currentStep={currentStepMock}

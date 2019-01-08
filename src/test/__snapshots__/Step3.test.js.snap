@@ -23,7 +23,7 @@ exports[`Step3 should match the snapshot with all data passed in 1`] = `
           "theme": "material",
         }
       }
-      value="  var inputData = [1,2,3];
+      value="  var inputData = [1, 2, 3];
       
   function solveProblem(arg) {
     // Apply the prototype to your input here

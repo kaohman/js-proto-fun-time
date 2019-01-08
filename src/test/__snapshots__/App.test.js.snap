@@ -3,27 +3,50 @@
 exports[`App should match the snapshot with all data passed in 1`] = `
 <div>
   <header>
-    <h2>
-      Question 
-      1
-       of 
-      0
-      <span
-        id="difficulty-text"
+    <div
+      className="left-info-container"
+    >
+      <h2>
+        0
+         of 
+        3
+         problems solved
+        <span
+          id="difficulty-text"
+        >
+          Current problem difficulty: 
+          2
+        </span>
+      </h2>
+      <button
+        className="app-buttons"
+        id="skip-button"
+        onClick={[Function]}
       >
-        Difficulty: 
-        2
-      </span>
-    </h2>
+        Skip Problem
+      </button>
+    </div>
     <h1>
       [ jsProtoFunTime ]
     </h1>
-    <button
-      id="instructions-button"
-      onClick={[Function]}
+    <div
+      className="right-header-buttons"
     >
-      Show Instructions
-    </button>
+      <button
+        className="app-buttons"
+        id="instructions-button"
+        onClick={[Function]}
+      >
+        Show Instructions
+      </button>
+      <button
+        className="app-buttons"
+        id="restart-button"
+        onClick={[Function]}
+      >
+        Start New Game
+      </button>
+    </div>
   </header>
   <div
     className="game-container"

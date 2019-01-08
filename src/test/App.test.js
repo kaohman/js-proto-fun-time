@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from '../App';
 import { shallow } from 'enzyme';
 
-const problemsMock = [{
+let problemsMock = [{
   question: "You are given the following array of numbers: [1, 3, 5, 6, 7, 9]. You are only interested in numbers that are divisible by 3. Return a new array or numbers that contains only the numbers divisible by 3.",
   inputDataType: "array",
   outputDataType: "array",
@@ -31,6 +31,8 @@ const problemsMock = [{
     difficulty: 2
   }
 ];
+let problemIdsMock = [1, 2, 3];
+let eventMock = { preventDefault: () => { } };
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -45,14 +47,13 @@ describe('App', () => {
     wrapper = shallow(
       <App />
     );
-
+    
     wrapper.setState({
       step: 1,
-      questionCount: 0,
       showInstructions: false,
       problems: problemsMock,
-      totalProblems: 0,
-      currentProblem: problemsMock[0],
+      solvedProblemIds: [],
+      unsolvedProblemIds: problemIdsMock,
       loaded: true
     });
   });
@@ -64,11 +65,10 @@ describe('App', () => {
   it('should have a default state', () => {
     expect(wrapper.state()).toEqual({ 
       step: 1,
-      questionCount: 0,
       showInstructions: false,
       problems: problemsMock,
-      totalProblems: 0,
-      currentProblem: problemsMock[0],
+      solvedProblemIds: [],
+      unsolvedProblemIds: problemIdsMock,
       loaded: true
      });
   });
@@ -88,19 +88,55 @@ describe('App', () => {
     expect(wrapper.state('step')).toEqual(1);
   });
 
-  it('should update the questionCount and currentProblem in state when updateQuestion is called', () => {
-    expect(wrapper.state('questionCount')).toEqual(0);
-    expect(wrapper.state('currentProblem')).toEqual(problemsMock[0]);
+  it('should update the solved and unsolved problems in state when updateQuestion is called after the user gets an answer correct', () => {
+    expect(wrapper.state('unsolvedProblemIds')).toEqual([1,2,3]);
+    expect(wrapper.state('solvedProblemIds')).toEqual([]);
     wrapper.instance().updateQuestion();
-    expect(wrapper.state('questionCount')).toEqual(1);
-    expect(wrapper.state('currentProblem')).toEqual(problemsMock[1]);
+    expect(wrapper.state('unsolvedProblemIds')).toEqual([2,3]);
+    expect(wrapper.state('solvedProblemIds')).toEqual([1]);
+    expect(wrapper.state('step')).toEqual(1);
   });
 
-  it('should update the questionCount, problems, and currentProblem in state when updateGame is called', () => {
-    wrapper.setState( { step: 3, questionCount: 3 } );
-    wrapper.instance().updateGame();
-    expect(wrapper.state('questionCount')).toEqual(0);
+  it('should allow users to skip a problem on click', () => {
+    const instance = wrapper.instance();
+    jest.spyOn(instance, 'updateQuestion');
+    wrapper.find('#skip-button').simulate('click', eventMock);
+    expect(instance.updateQuestion).toHaveBeenCalled();
+    expect(wrapper.state('unsolvedProblemIds')).toEqual([2, 3, 1]);
+  });
+
+  it('should update the unsolved problems in state when updateQuestion is called after the user skips a problem', () => {
+    expect(wrapper.state('unsolvedProblemIds')).toEqual([1,2,3]);
+    wrapper.instance().updateQuestion(true);
+    expect(wrapper.state('unsolvedProblemIds')).toEqual([2,3,1]);
+    expect(wrapper.state('solvedProblemIds')).toEqual([]);
+    expect(wrapper.state('step')).toEqual(1);
+  });
+
+  it('should allow users to start a new game on click', () => {
+    wrapper.find('#restart-button').simulate('click');
+    expect(wrapper.state('step')).toEqual(1);
     expect(wrapper.state('problems').length).toEqual(3);
+    expect(wrapper.state('unsolvedProblemIds').length).toEqual(3);
+    expect(wrapper.state('solvedProblemIds')).toEqual([]);
   });
 
+  it('should update the problems, unsolvedProblemIds, and solvedProblems in state when updateGame is called', () => {
+    wrapper.setState( { step: 3, solvedProblemIds: [1,2,3] } );
+    wrapper.instance().updateGame();
+    expect(wrapper.state('step')).toEqual(1);
+    expect(wrapper.state('problems').length).toEqual(3);
+    expect(wrapper.state('unsolvedProblemIds').length).toEqual(3);
+    expect(wrapper.state('solvedProblemIds')).toEqual([]);
+  });
+
+  it('should be able to pull solved problems from local storage', () => {
+    localStorage.setItem('solvedProblems', JSON.stringify(problemIdsMock));
+    wrapper.instance().pullFromLocalStorage();
+    expect(wrapper.state('solvedProblemIds')).toEqual([1,2,3]);
+  });
+
+  it('should be able parse data input text', () => {
+    expect(wrapper.instance().getParsedInput([1, 3, 5, 6, 7, 9])).toEqual("[1,3,5,6,7,9]");
+  });
 });

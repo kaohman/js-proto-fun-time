@@ -49,8 +49,8 @@ class App extends Component {
     } else {
       let newUnsolvedProblems = unsolvedProblemIds.slice();
       let newSolvedProblems = solvedProblemIds.slice();
-      newUnsolvedProblems.shift();
-      newSolvedProblems.push(newUnsolvedProblems[0]);
+      let solvedProblem = newUnsolvedProblems.shift();
+      newSolvedProblems.push(solvedProblem);
       this.setState({ 
         solvedProblemIds: newSolvedProblems,
         unsolvedProblemIds: newUnsolvedProblems,
@@ -141,7 +141,11 @@ class App extends Component {
             </div>
           </header>
           <div className='game-container'>
-            <Step1 incrementStep={this.incrementStep} question={parsedQuestion} currentStep={step} />
+            <Step1 
+              incrementStep={this.incrementStep}
+              question={parsedQuestion}
+              currentStep={step}
+            />
             {
               step > 1 && 
               <Step2 
