@@ -92,7 +92,7 @@ class App extends Component {
 
   componentDidMount() {
     this.pullFromLocalStorage();
-    fetch('http://memoize-datasets.herokuapp.com/api/v1/problems')
+    fetch('https://memoize-datasets.herokuapp.com/api/v1/problems')
       .then(data => data.json())
       .then(results => {
         let randomResults = results.problems
