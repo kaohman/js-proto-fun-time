@@ -27,26 +27,28 @@ class App extends Component {
   }
 
   incrementStep = () => {
-    let newStep = this.state.step < 3 ? this.state.step + 1 : 1;
+    let { step, solvedProblemIds, problems } = this.state;
+    let newStep = step < 3 ? step + 1 : 1;
     this.setState({
       step: newStep
     });
     if (newStep === 1) {
-      this.state.solvedProblemIds.length !== this.state.problems.length ? this.updateQuestion() : this.updateGame();
+      solvedProblemIds.length !== problems.length ? this.updateQuestion() : this.updateGame();
     } 
   }
 
   updateQuestion = (skip = false) => {
+    let { unsolvedProblemIds, solvedProblemIds } = this.state;
     if (skip) {
-      let newUnsolvedProblems = this.state.unsolvedProblemIds.slice();
+      let newUnsolvedProblems = unsolvedProblemIds.slice();
       newUnsolvedProblems.push(newUnsolvedProblems.shift());
       this.setState({
         unsolvedProblemIds: newUnsolvedProblems,
         step: 1
       })
     } else {
-      let newUnsolvedProblems = this.state.unsolvedProblemIds.slice();
-      let newSolvedProblems = this.state.solvedProblemIds.slice();
+      let newUnsolvedProblems = unsolvedProblemIds.slice();
+      let newSolvedProblems = solvedProblemIds.slice();
       newUnsolvedProblems.shift();
       newSolvedProblems.push(newUnsolvedProblems[0]);
       this.setState({ 
