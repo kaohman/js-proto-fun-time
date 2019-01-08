@@ -1,7 +1,7 @@
 {
   "main.css": "/js-proto-fun-time/static/css/main.6e65df3e.chunk.css",
-  "main.js": "/js-proto-fun-time/static/js/main.d89f5273.chunk.js",
-  "main.js.map": "/js-proto-fun-time/static/js/main.d89f5273.chunk.js.map",
+  "main.js": "/js-proto-fun-time/static/js/main.f6bcb944.chunk.js",
+  "main.js.map": "/js-proto-fun-time/static/js/main.f6bcb944.chunk.js.map",
   "static/css/1.52657a4e.chunk.css": "/js-proto-fun-time/static/css/1.52657a4e.chunk.css",
   "static/js/1.46e27166.chunk.js": "/js-proto-fun-time/static/js/1.46e27166.chunk.js",
   "static/js/1.46e27166.chunk.js.map": "/js-proto-fun-time/static/js/1.46e27166.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/1.52657a4e.chunk.css.map": "/js-proto-fun-time/static/css/1.52657a4e.chunk.css.map",
   "static/css/main.6e65df3e.chunk.css.map": "/js-proto-fun-time/static/css/main.6e65df3e.chunk.css.map",
   "index.html": "/js-proto-fun-time/index.html",
-  "precache-manifest.12da962d320bf0b5d1e13a2cd1f97e4c.js": "/js-proto-fun-time/precache-manifest.12da962d320bf0b5d1e13a2cd1f97e4c.js",
+  "precache-manifest.fd41bd6ea07be57516430f756aed759f.js": "/js-proto-fun-time/precache-manifest.fd41bd6ea07be57516430f756aed759f.js",
   "service-worker.js": "/js-proto-fun-time/service-worker.js"
 }
