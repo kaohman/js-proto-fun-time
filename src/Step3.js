@@ -54,9 +54,8 @@ class Step3 extends Component {
   }
 
   render() {
-    let { input, incrementStep, currentStep, questionCount, gameLength } = this.props;
-    let parsedInput = input.includes('{') ? input : JSON.stringify(input).replace(/"/g, "'").replace("''", "'").replace('.', '');
-    let problemSetup = `  var inputData = ${parsedInput};
+    let { renderInput, incrementStep, currentStep, questionCount, gameLength } = this.props;
+    let problemSetup = `  var inputData = ${renderInput};
       
   function solveProblem(arg) {
     // Apply the prototype to your input here

@@ -37,14 +37,15 @@ class App extends Component {
   }
 
   updateQuestion = (skip = false) => {
-    let newUnsolvedProblems = this.state.unsolvedProblemIds.slice();
     if (skip) {
+      let newUnsolvedProblems = this.state.unsolvedProblemIds.slice();
       newUnsolvedProblems.push(newUnsolvedProblems.shift());
       this.setState({
         unsolvedProblemIds: newUnsolvedProblems,
         step: 1
       })
     } else {
+      let newUnsolvedProblems = this.state.unsolvedProblemIds.slice();
       let newSolvedProblems = this.state.solvedProblemIds.slice();
       newUnsolvedProblems.shift();
       newSolvedProblems.push(newUnsolvedProblems[0]);
@@ -76,22 +77,31 @@ class App extends Component {
 
   pullFromLocalStorage = () => {
     if (localStorage.hasOwnProperty('solvedProblems')) {
-      let cachedSolvedProblemsIds = localStorage.getItem('solvedProblems');
-      let solvedProblemIds = JSON.parse(cachedSolvedProblemsIds);
-      let unsolvedProblemIds = this.state.unsolvedProblemIds.filter(id => solvedProblemIds.includes(id) === -1);
+      let solvedProblemIds = JSON.parse(localStorage.getItem('solvedProblems'));
       this.setState({
-        solvedProblemIds: solvedProblemIds,
-        unsolvedProblemIds: unsolvedProblemIds
+        solvedProblemIds: solvedProblemIds
       });
     }
   }
 
+  getParsedInput = (input) => {
+    return input.includes('{') ? input.replace('.', '') : JSON.stringify(input).replace(/"/g, "'");
+  }
+
   componentDidMount() {
+    this.pullFromLocalStorage();
     fetch('http://memoize-datasets.herokuapp.com/api/v1/problems')
       .then(data => data.json())
       .then(results => {
-        let randomResults = results.problems.sort((a, b) => 0.5 - Math.random());
-        let unsolvedProblems = randomResults.map(problem => problem.question);
+        let randomResults = results.problems
+          .filter(problem => problem.inputDataType !== 'object')
+          .sort((a, b) => 0.5 - Math.random());
+        let unsolvedProblems = randomResults.reduce((acc, problem) => {
+          if (!this.state.solvedProblemIds.includes(problem.question)) {
+            acc.push(problem.question)
+          }
+          return acc
+        }, []);
         this.setState({
           problems: randomResults,
           totalProblems: randomResults.length,
@@ -100,8 +110,6 @@ class App extends Component {
         });
       })
       .catch(error => console.log(error));
-
-    this.pullFromLocalStorage();
   }
 
   render() {
@@ -109,6 +117,7 @@ class App extends Component {
       let { step, showInstructions, problems, solvedProblemIds, unsolvedProblemIds } = this.state;
       let currentProblem = problems.find(problem => problem.question.includes(unsolvedProblemIds[0]));
       let parsedQuestion = currentProblem.question.replace('. ', '.\n\n');
+      let parsedInput = this.getParsedInput(currentProblem.input);
       return (
         <div>
           <header>
@@ -145,6 +154,7 @@ class App extends Component {
                 incrementStep={this.incrementStep} 
                 correctAnswer={currentProblem.result}
                 input={currentProblem.input}
+                renderInput = {parsedInput}
                 questionCount={solvedProblemIds.length}
                 gameLength={problems.length}
                 currentStep={step}
